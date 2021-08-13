@@ -3,7 +3,10 @@
 {% block title %}Clinica{% endblock title %}
 
 {% block body %}
-
-    <h1>Clinica</h1>
-
+{% include './components/nav.html' %}
+{% block content %}
+{% if data %}
+<h2>Bienvenido {{data.usuario}}</h2>
+{% endif %}
+{% endblock content %}
 {% endblock body %}
