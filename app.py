@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 
+import controlador
+
 app = Flask(__name__)
 
 app.secret_key = 'Rec3T@'
@@ -11,6 +13,7 @@ def session_management():
 @app.route('/')
 def index():
     usuario , rol = recuperar_usuario()
+    controlador.recuperar_sesion('admin@email.com', 'Admin.123')
     if usuario == 'desconocido':
         return redirect(url_for('login'))
     return render_template('index.html', data={'usuario':usuario, 'rol':rol})
