@@ -1,0 +1,28 @@
+{% extends './index.html' %}
+
+{% block title %}Registrar medicamentos{% endblock title %}
+
+{% block content %}
+<h2>Registrar Medicamento</h2>
+<form action="/registrar_medicamento" method="post">
+    <div>
+        <label for="nombre">Nombre</label>
+        <input type="text" name="nombre" id="nombre">
+    </div>
+    <div>
+        <label for="registro">Registro sanitario</label>
+        <input type="text" name="registro" id="registro">
+    </div>
+    <div>
+        <label for="fecha_elaboracion">Fecha elaboracion</label>
+        <input type="text" name="fecha_elaboracion" id="fecha_elaboracion">
+    </div>
+    <div>
+        <label for="fecha_vencimiento">Fecha vencimiento</label>
+        <input type="text" name="fecha_vencimiento" id="fecha_vencimiento">
+    </div>
+
+    <button type="submit">Registrar</button>
+
+</form>
+{% endblock content %}

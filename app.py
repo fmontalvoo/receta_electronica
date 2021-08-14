@@ -94,6 +94,26 @@ def registrar_paciente():
             nombres, apellidos, correo, especialidad, clave)
     return render_template('usuario/paciente/crear.html')
 
+    """C.R.U.D de Medicamentos"""
+
+@app.route('/registrar_medicamento', methods=['GET', 'POST'])
+def registrar_medicamento():
+    usuario = recuperar_usuario()
+    if usuario == None:
+        return redirect(url_for('login'))
+    if usuario.rol != 'Administrador' and usuario.rol != 'Medico':
+        return redirect(url_for('index'))
+
+    if request.method == 'POST':
+        data = request.form
+        nombre=data['nombre']
+        registro=data['registro']
+        fecha_elaboracion= data['fecha_elaboracion']
+        fecha_vencimiento= data['fecha_vencimiento']
+        controlador.registrar_medicamento(
+            nombre, registro, fecha_elaboracion, fecha_vencimiento
+        )
+    return render_template('medicamentos/crear.html')
 
 def recuperar_usuario():
     try:
