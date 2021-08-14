@@ -16,20 +16,26 @@ def recuperar_usuario(correo, clave):
             rol = result['rol']
             if rol == 'Administrador':
                 return Usuario(codigo, 'Usuario administrador', correo, rol)
-            return None
+            if rol == 'Medico':
+                return recuperar_medico(codigo, correo, rol)
+            if rol == 'Paciente':
+                return recuperar_paciente(codigo, correo, rol)
 
 
-def recuperar_medico(codigo):
+def recuperar_medico(codigo, correo, rol):
     with conexion.cursor() as cursor:
-        sql = "SELECT * FROM medico WHERE codigo_usuario=%d"
+        sql = "SELECT * FROM medico WHERE codigo_usuario=%s"
         cursor.execute(sql, (codigo))
         result = cursor.fetchone()
         print(result)
+        nombre_completo = f"{result['nombres']} {result['apellidos']}"
+        return Usuario(codigo, nombre_completo, correo, rol)
 
 
-def recuperar_paciente(codigo):
+def recuperar_paciente(codigo, correo, rol):
     with conexion.cursor() as cursor:
-        sql = "SELECT * FROM paciente WHERE codigo_usuario=%d"
+        sql = "SELECT * FROM paciente WHERE codigo_usuario=%s"
         cursor.execute(sql, (codigo))
         result = cursor.fetchone()
-        print(result)
+        nombre_completo = f"{result['nombres']} {result['apellidos']}"
+        return Usuario(codigo, nombre_completo, correo, rol)

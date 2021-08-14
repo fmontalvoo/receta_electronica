@@ -1,13 +1,21 @@
 <nav>
-   <ul>
-       <li>
-        <a href="{{ url_for('logout') }}">cerrar sesion</a>
-       </li>
-       <li>
-        <a href="{{ url_for('registrar_medico') }}">registrar medico</a>
-       </li>
-       <li>
-        <a href="{{ url_for('registrar_paciente') }}">registrar paciente</a>
-       </li>
-   </ul>
+    <h2>{{session['rol']}}</h2>
+    <ul>
+        <li>
+            <a href="{{ url_for('index') }}">Inicio</a>
+        </li>
+        {% if session['rol'] == 'Administrador' %}
+        <li>
+            <a href="{{ url_for('registrar_medico') }}">Registrar medico</a>
+        </li>
+        {% endif %}
+        {% if session['rol'] == 'Administrador' or session['rol'] == 'Medico' %}
+        <li>
+            <a href="{{ url_for('registrar_paciente') }}">Registrar paciente</a>
+        </li>
+        {% endif %}
+        <li>
+            <a href="{{ url_for('logout') }}">Cerrar sesion</a>
+        </li>
+    </ul>
 </nav>

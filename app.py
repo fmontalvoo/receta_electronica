@@ -20,7 +20,7 @@ def index():
     usuario = recuperar_usuario()
     if usuario == None:
         return redirect(url_for('login'))
-    return render_template('index.html', data=usuario)
+    return render_template('index.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -50,6 +50,50 @@ def logout():
     session.clear()
     return redirect(url_for('login'))
 
+    """C.R.U.D de Medicos"""
+
+
+@app.route('/registrar_medico', methods=['GET', 'POST'])
+def registrar_medico():
+    usuario = recuperar_usuario()
+    if usuario == None:
+        return redirect(url_for('login'))
+    if usuario.rol != 'Administrador':
+        return redirect(url_for('index'))
+
+    if request.method == 'POST':
+        data = request.form
+        nombres = data['nombres']
+        apellidos = data['apellidos']
+        correo = data['correo']
+        especialidad = data['especialidad']
+        clave = data['clave']
+        controlador.registrar_medico(
+            nombres, apellidos, correo, especialidad, clave)
+    return render_template('usuario/medico/crear.html')
+
+    """C.R.U.D de Pacientes"""
+
+
+@app.route('/registrar_paciente', methods=['GET', 'POST'])
+def registrar_paciente():
+    usuario = recuperar_usuario()
+    if usuario == None:
+        return redirect(url_for('login'))
+    if usuario.rol != 'Administrador' and usuario.rol != 'Medico':
+        return redirect(url_for('index'))
+
+    if request.method == 'POST':
+        data = request.form
+        nombres = data['nombres']
+        apellidos = data['apellidos']
+        correo = data['correo']
+        especialidad = data['historia_clinica']
+        clave = data['clave']
+        controlador.registrar_paciente(
+            nombres, apellidos, correo, especialidad, clave)
+    return render_template('usuario/paciente/crear.html')
+
 
 def recuperar_usuario():
     try:
@@ -58,38 +102,6 @@ def recuperar_usuario():
     except:
         usuario = None
     return usuario
-
-# C.R.U.D de Medicos
-
-
-@app.route('/registrar_medico', methods=['GET', 'POST'])
-def registrar_medico():
-    if request.method == 'POST':
-        data = request.form
-        nombres = data['nombres']
-        apellidos = data['apellidos']
-        correo = data['correo']
-        especialidad = data['especialidad']
-        clave = data['clave']
-        controlador.registrar_medico(nombres, apellidos, correo, especialidad, clave)
-    return render_template('usuario/medico/crear.html')
-
-# C.R.U.D de Pacientes
-
-
-@app.route('/registrar_paciente', methods=['GET', 'POST'])
-def registrar_paciente():
-    if request.method == 'POST':
-        data = request.form
-        nombres = data['nombres']
-        apellidos = data['apellidos']
-        correo = data['correo']
-        especialidad = data['historia_clinica']
-        clave = data['clave']
-        controlador.registrar_paciente(nombres, apellidos, correo, especialidad, clave)
-    return render_template('usuario/paciente/crear.html')
-
-# C.R.U.D de Medicamentos
 
 
 if __name__ == '__main__':
