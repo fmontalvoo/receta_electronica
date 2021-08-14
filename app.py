@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 
 import controlador
+from usuario import *
 
 app = Flask(__name__)
 
@@ -12,49 +13,43 @@ def session_management():
 
 @app.route('/')
 def index():
-    usuario , rol = recuperar_usuario()
-    controlador.recuperar_sesion('admin@email.com', 'Admin.123')
-    if usuario == 'desconocido':
+    usuario = recuperar_usuario()
+    if usuario == None:
         return redirect(url_for('login'))
-    return render_template('index.html', data={'usuario':usuario, 'rol':rol})
+    return render_template('index.html', data=usuario)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    usuario , rol = recuperar_usuario()
-    if usuario != 'desconocido':
+    usuario = recuperar_usuario()
+    if usuario != None:
         return redirect(url_for('index'))
     
     if request.method == 'POST':
         data = request.form
         correo = data['correo']
         clave = data['clave']
-        print(correo, clave)
-        if correo == 'test@email.com' and clave == '123':
+        print(data)
+        usuario = controlador.recuperar_usuario(correo.strip(), clave.strip())
+        if usuario != None:
             session.clear()
-            session['correo'] = correo
-            session['usuario'] = 'Alan Brito'
-            session['rol'] = 'admin'
+            session['codigo'] = usuario.codigo
+            session['nombre_completo'] = usuario.nombre_completo
+            session['correo'] = usuario.correo
+            session['rol'] = usuario.rol
             return redirect(url_for('index'))
     return render_template('usuario/login.html')
 
 @app.route('/logout')
 def logout():
     session.clear()
-    usuario = 'desconocido'
-    correo = 'ninguno'
-    rol = 'ninguno'
     return redirect(url_for('login'))
 
 def recuperar_usuario():
     try:
-        usuario = session['usuario']
-        correo = session['correo']
-        rol = session['rol']
+        usuario = Usuario(session['codigo'], session['nombre_completo'], session['correo'], session['rol'])
     except:
-        usuario = 'desconocido'
-        correo = 'ninguno'
-        rol = 'ninguno'
-    return (usuario, rol)
+        usuario = None
+    return usuario
 
 if __name__ == '__main__':
     app.run(debug=True, port=3000)
