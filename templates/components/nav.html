@@ -1,3 +1,13 @@
 <nav>
-    <a href="{{ url_for('logout') }}">cerrar sesion</a>
+   <ul>
+       <li>
+        <a href="{{ url_for('logout') }}">cerrar sesion</a>
+       </li>
+       <li>
+        <a href="{{ url_for('registrar_medico') }}">registrar medico</a>
+       </li>
+       <li>
+        <a href="{{ url_for('registrar_paciente') }}">registrar paciente</a>
+       </li>
+   </ul>
 </nav>

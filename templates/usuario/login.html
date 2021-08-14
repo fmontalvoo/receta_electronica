@@ -4,14 +4,18 @@
 
 {% block body %}
 
-    <h1>Iniciar sesion</h1>
+<h1>Iniciar sesion</h1>
 
-    <form autocomplete="off" action="/login" method="POST">
+<form autocomplete="off" action="/login" method="POST">
+    <div>
+        <label for="correo">Correo</label>
         <input type="text" name="correo" id="correo">
-        <br>
+    </div>
+    <div>
+        <label for="clave">Contraseña</label>
         <input type="password" name="clave" id="clave">
-        <br>
-        <button type="submit">Ingresar</button>
-    </form>
+    </div>
+    <button type="submit">Ingresar</button>
+</form>
 
 {% endblock body %}

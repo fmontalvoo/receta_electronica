@@ -1,0 +1,30 @@
+{% extends './index.html' %}
+
+{% block content %}
+<h2>Crear paciente</h2>
+<form action="/registrar_paciente" method="post">
+    <div>
+        <label for="nombres">Nombres</label>
+        <input type="text" name="nombres" id="nombres">
+    </div>
+    <div>
+        <label for="apellidos">Apellidos</label>
+        <input type="text" name="apellidos" id="apellidos">
+    </div>
+    <div>
+        <label for="correo">Correo</label>
+        <input type="email" name="correo" id="correo">
+    </div>
+    <div>
+        <label for="historia_clinica">Numero de historia clinica</label>
+        <input type="text" name="historia_clinica" id="historia_clinica">
+    </div>
+    <div>
+        <label for="clave">Constraseña</label>
+        <input type="password" name="clave" id="clave">
+    </div>
+
+    <button type="submit">Registrar</button>
+
+</form>
+{% endblock content %}
