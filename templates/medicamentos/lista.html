@@ -1,0 +1,27 @@
+{% extends './index.html' %}
+
+{% block title %}Listado Medicamentos{% endblock title %}
+
+{% block content %}
+<h2>Listado Medicamentos</h2>
+{% if data %}
+<table>
+    <thead>
+        <th>Nombre</th>
+        <th>Registro sanitario</th>
+        <th>Fecha elaboracion</th>
+        <th>Fecha vencimiento</th>
+    </thead>
+    <tbody>
+        {% for medicamento in data.medicamentos %}
+        <tr>
+            <td>{{medicamento.nombre}}</td>
+            <td>{{medicamento.registro_sanitario}}</td>
+            <td>{{medicamento.fecha_elaboracion}}</td>
+            <td>{{medicamento.fecha_vencimiento}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock content %}

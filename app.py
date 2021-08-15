@@ -96,6 +96,7 @@ def registrar_paciente():
 
     """C.R.U.D de Medicamentos"""
 
+
 @app.route('/registrar_medicamento', methods=['GET', 'POST'])
 def registrar_medicamento():
     usuario = recuperar_usuario()
@@ -106,14 +107,26 @@ def registrar_medicamento():
 
     if request.method == 'POST':
         data = request.form
-        nombre=data['nombre']
-        registro=data['registro']
-        fecha_elaboracion= data['fecha_elaboracion']
-        fecha_vencimiento= data['fecha_vencimiento']
+        nombre = data['nombre']
+        registro = data['registro']
+        fecha_elaboracion = data['fecha_elaboracion']
+        fecha_vencimiento = data['fecha_vencimiento']
         controlador.registrar_medicamento(
             nombre, registro, fecha_elaboracion, fecha_vencimiento
         )
     return render_template('medicamentos/crear.html')
+
+
+@app.route('/lista_medicamentos')
+def lista_medicamentos():
+    usuario = recuperar_usuario()
+    if usuario == None:
+        return redirect(url_for('login'))
+    if usuario.rol != 'Administrador' and usuario.rol != 'Medico':
+        return redirect(url_for('index'))
+    medicamentos = controlador.recuperar_medicamentos()
+    return render_template('medicamentos/lista.html', data={'medicamentos': medicamentos})
+
 
 def recuperar_usuario():
     try:

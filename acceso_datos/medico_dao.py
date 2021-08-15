@@ -4,6 +4,7 @@ from modelos.medico import *
 
 conexion = obtener_conexion()
 
+
 def registrar_medico(medico):
     with conexion:
         with conexion.cursor() as cursor:
@@ -19,10 +20,6 @@ def registrar_medico(medico):
 
         with conexion.cursor() as cursor:
             sql = "INSERT INTO medico (codigo_usuario, nombres, apellidos, especialidad) values(%s, %s, %s, %s)"
-            cursor.execute(sql, (codigo, medico.nombres, medico.apellidos, medico.especialidad))
+            cursor.execute(sql, (codigo, medico.nombres,
+                           medico.apellidos, medico.especialidad))
             conexion.commit()
-        
-
-        
-
-        
