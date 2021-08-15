@@ -13,6 +13,32 @@ def registrar_medicamento(medicamento):
         conexion.commit()
 
 
+def recuperar_medicamento(codigo):
+    with conexion .cursor() as cursor:
+        sql = "SELECT * FROM medicamento WHERE codigo=%s"
+        cursor.execute(sql, (codigo))
+        result = cursor.fetchone()
+        if result != None:
+            return Medicamento(
+                result['codigo'], result['nombre'], result['registro_sanitario'], result['fecha_elaboracion'], result['fecha_elaboracion'])
+        return None
+
+
+def editar_medicamento(medicamento):
+    with conexion.cursor() as cursor:
+        sql = "UPDATE medicamento SET nombre=%s, registro_sanitario=%s, fecha_elaboracion=%s, fecha_vencimiento=%s WHERE codigo=%s"
+        cursor.execute(sql, (medicamento.nombre, medicamento.registro_sanitario,
+                       medicamento.fecha_elaboracion, medicamento.fecha_vencimiento, medicamento.codigo))
+        conexion.commit()
+
+
+def eliminar_medicamento(codigo):
+    with conexion.cursor() as cursor:
+        sql = "DELETE FROM medicamento WHERE codigo=%s"
+        cursor.execute(sql, (codigo))
+        conexion.commit()
+
+
 def recuperar_medicamentos():
     with conexion .cursor() as cursor:
         sql = "SELECT * FROM medicamento"

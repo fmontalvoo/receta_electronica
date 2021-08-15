@@ -5,12 +5,14 @@
 {% block content %}
 <h2>Listado Medicamentos</h2>
 {% if data %}
+<a href="{{ url_for('registrar_medicamento') }}">Registrar nuevo medicamento</a>
 <table>
     <thead>
         <th>Nombre</th>
         <th>Registro sanitario</th>
         <th>Fecha elaboracion</th>
         <th>Fecha vencimiento</th>
+        <th>Acciones</th>
     </thead>
     <tbody>
         {% for medicamento in data.medicamentos %}
@@ -19,9 +21,16 @@
             <td>{{medicamento.registro_sanitario}}</td>
             <td>{{medicamento.fecha_elaboracion}}</td>
             <td>{{medicamento.fecha_vencimiento}}</td>
+            <td>
+                <a href="{{ url_for('editar_medicamento', codigo=medicamento.codigo) }}">Actulizar</a>
+                <a id="btn-delete" href="{{ url_for('eliminar_medicamento', codigo=medicamento.codigo) }}">Eliminar</a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
 {% endif %}
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock scripts %}
 {% endblock content %}

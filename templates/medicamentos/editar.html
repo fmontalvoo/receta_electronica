@@ -1,0 +1,30 @@
+{% extends './index.html' %}
+
+{% block title %}Editar medicamentos{% endblock title %}
+
+{% block content %}
+<h2>Editar Medicamento</h2>
+{% if medicamento %}
+<form action="/editar_medicamento/{{medicamento.codigo}}" method="post">
+    <div>
+        <label for="nombre">Nombre</label>
+        <input type="text" name="nombre" id="nombre" value="{{medicamento.nombre}}">
+    </div>
+    <div>
+        <label for="registro">Registro sanitario</label>
+        <input type="text" name="registro" id="registro" value="{{medicamento.registro_sanitario}}">
+    </div>
+    <div>
+        <label for="fecha_elaboracion">Fecha elaboracion</label>
+        <input type="text" name="fecha_elaboracion" id="fecha_elaboracion" value="{{medicamento.fecha_elaboracion}}">
+    </div>
+    <div>
+        <label for="fecha_vencimiento">Fecha vencimiento</label>
+        <input type="text" name="fecha_vencimiento" id="fecha_vencimiento" value="{{medicamento.fecha_vencimiento}}">
+    </div>
+
+    <button type="submit">Editar</button>
+
+</form>
+{% endif %}
+{% endblock content %}

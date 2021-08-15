@@ -28,5 +28,19 @@ def registrar_medicamento(nombre, registro_sanitario, fecha_elaboracion, fecha_v
     medao.registrar_medicamento(medicamento)
 
 
+def editar_medicamento(codigo, nombre, registro_sanitario, fecha_elaboracion, fecha_vencimiento):
+    medicamento = Medicamento(codigo,
+                              nombre, registro_sanitario, fecha_elaboracion, fecha_vencimiento)
+    medao.editar_medicamento(medicamento)
+
+
+def recuperar_medicamento(codigo):
+    return medao.recuperar_medicamento(codigo)
+
+
+def eliminar_medicamento(codigo):
+    return medao.eliminar_medicamento(codigo)
+
+
 def recuperar_medicamentos():
     return medao.recuperar_medicamentos()

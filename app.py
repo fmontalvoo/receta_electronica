@@ -114,6 +114,9 @@ def registrar_medicamento():
         controlador.registrar_medicamento(
             nombre, registro, fecha_elaboracion, fecha_vencimiento
         )
+        
+        return redirect(url_for('lista_medicamentos'))
+    
     return render_template('medicamentos/crear.html')
 
 
@@ -127,6 +130,44 @@ def lista_medicamentos():
     medicamentos = controlador.recuperar_medicamentos()
     return render_template('medicamentos/lista.html', data={'medicamentos': medicamentos})
 
+
+@app.route('/editar_medicamento/<int:codigo>', methods=['GET', 'POST'])
+def editar_medicamento(codigo):
+    usuario = recuperar_usuario()
+    if usuario == None:
+        return redirect(url_for('login'))
+    if usuario.rol != 'Administrador' and usuario.rol != 'Medico':
+        return redirect(url_for('index'))
+
+    if request.method == 'POST':
+        data = request.form
+        nombre = data['nombre']
+        registro = data['registro']
+        fecha_elaboracion = data['fecha_elaboracion']
+        fecha_vencimiento = data['fecha_vencimiento']
+        print(data)
+        controlador.editar_medicamento(codigo,
+                                       nombre, registro,
+                                       fecha_elaboracion,
+                                       fecha_vencimiento
+                                       )
+        return redirect(url_for('lista_medicamentos'))
+
+    medicamento = controlador.recuperar_medicamento(codigo)
+
+    return render_template('medicamentos/editar.html', medicamento=medicamento)
+
+@app.route('/eliminar_medicamento/<int:codigo>')
+def eliminar_medicamento(codigo):
+    usuario = recuperar_usuario()
+    if usuario == None:
+        return redirect(url_for('login'))
+    if usuario.rol != 'Administrador' and usuario.rol != 'Medico':
+        return redirect(url_for('index'))
+    
+    controlador.eliminar_medicamento(codigo)
+
+    return redirect(url_for('lista_medicamentos'))
 
 def recuperar_usuario():
     try:

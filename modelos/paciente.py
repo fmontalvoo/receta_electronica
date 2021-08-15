@@ -1,6 +1,7 @@
 class Paciente:
 
-    def __init__(self, nombres, apellidos, correo, historial_clinico, clave):
+    def __init__(self, codigo, nombres, apellidos, correo, historial_clinico, clave):
+        self.codigo = codigo
         self.nombres = nombres
         self.apellidos = apellidos
         self.correo = correo
