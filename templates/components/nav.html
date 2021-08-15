@@ -11,7 +11,7 @@
         {% endif %}
         {% if session['rol'] == 'Administrador' or session['rol'] == 'Medico' %}
         <li>
-            <a href="{{ url_for('registrar_paciente') }}">Registrar paciente</a>
+            <a href="{{ url_for('lista_pacientes') }}">Pacientes</a>
         </li>
         <li>
             <a href="{{ url_for('lista_medicamentos') }}">Medicamentos</a>

@@ -25,8 +25,10 @@ def editar_medico(codigo, nombres, apellidos, correo, especialidad, clave):
     medico = Medico(codigo, nombres, apellidos, correo, especialidad, clave)
     mdao.editar_medico(medico)
 
+
 def eliminar_medico(codigo):
     mdao.eliminar_medico(codigo)
+
 
 def recuperar_medicos():
     return mdao.recuperar_medicos()
@@ -36,6 +38,24 @@ def registrar_paciente(nombres, apellidos, correo, historial_clinico, clave):
     paciente = Paciente(0, nombres, apellidos, correo,
                         historial_clinico, clave)
     pdao.registrar_paciente(paciente)
+
+
+def recuperar_paciente(codigo):
+    return pdao.recuperar_paciente(codigo)
+
+
+def editar_paciente(codigo, nombres, apellidos, correo, historial_clinico, clave):
+    paciente = Paciente(codigo, nombres, apellidos,
+                        correo, historial_clinico, clave)
+    pdao.editar_paciente(paciente)
+
+
+def eliminar_paciente(codigo):
+    pdao.eliminar_paciente(codigo)
+
+
+def recuperar_pacientes():
+    return pdao.recuperar_pacientes()
 
 
 def registrar_medicamento(nombre, registro_sanitario, fecha_elaboracion, fecha_vencimiento):

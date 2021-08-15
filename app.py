@@ -1,3 +1,4 @@
+import re
 from flask import Flask, render_template, request, redirect, url_for, session
 
 from decouple import config
@@ -133,7 +134,50 @@ def registrar_paciente():
         clave = data['clave']
         controlador.registrar_paciente(
             nombres, apellidos, correo, especialidad, clave)
+        return redirect(url_for('lista_pacientes'))
     return render_template('usuario/paciente/crear.html')
+
+@app.route('/lista_pacientes')
+def lista_pacientes():
+    tiene_permiso, ruta = verificar_sesion(['Administrador', 'Medico'])
+    if not tiene_permiso:
+        return redirect(url_for(ruta))
+    
+    pacientes = controlador.recuperar_pacientes()
+    return render_template('usuario/paciente/lista.html', data={'pacientes': pacientes})
+    
+
+@app.route('/editar_paciente/<int:codigo>', methods=['GET', 'POST'])
+def editar_paciente(codigo):
+    tiene_permiso, ruta = verificar_sesion(['Administrador', 'Medico'])
+    if not tiene_permiso:
+        return redirect(url_for(ruta))
+    
+    if request.method == 'POST':
+        data = request.form
+        nombres = data['nombres']
+        apellidos = data['apellidos']
+        correo = data['correo']
+        historia_clinica = data['historia_clinica']
+        clave = data['clave']
+        controlador.editar_paciente(codigo,nombres, apellidos, correo, historia_clinica, clave)
+        return redirect(url_for('lista_pacientes'))
+    
+    paciente = controlador.recuperar_paciente(codigo)
+
+    return render_template('usuario/paciente/editar.html', paciente=paciente)
+
+@app.route('/eliminar_paciente/<int:codigo>')
+def eliminar_paciente(codigo):
+    tiene_permiso, ruta= verificar_sesion(['Administrador','Medico'])
+    if not tiene_permiso:
+        return redirect(url_for(ruta))
+
+    controlador.eliminar_paciente(codigo)
+
+    return redirect(url_for('lista_pacientes'))
+
+
 
     """C.R.U.D de Medicamentos"""
 
