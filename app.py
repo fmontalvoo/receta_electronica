@@ -55,11 +55,9 @@ def logout():
 
 @app.route('/registrar_medico', methods=['GET', 'POST'])
 def registrar_medico():
-    usuario = recuperar_usuario()
-    if usuario == None:
-        return redirect(url_for('login'))
-    if usuario.rol != 'Administrador':
-        return redirect(url_for('index'))
+    tiene_permiso, ruta = verificar_sesion(['Administrador'])
+    if not tiene_permiso:
+        return redirect(url_for(ruta))
 
     if request.method == 'POST':
         data = request.form
@@ -77,24 +75,19 @@ def registrar_medico():
 
 @app.route('/lista_medicos')
 def lista_medicos():
-    usuario = recuperar_usuario()
-    if usuario == None:
-        return redirect(url_for('login'))
-    if usuario.rol != 'Administrador':
-        return redirect(url_for('index'))
+    tiene_permiso, ruta = verificar_sesion(['Administrador'])
+    if not tiene_permiso:
+        return redirect(url_for(ruta))
 
     medicos = controlador.recuperar_medicos()
-
     return render_template('usuario/medico/lista.html', data={'medicos': medicos})
 
 
 @app.route('/editar_medico/<int:codigo>', methods=['GET', 'POST'])
 def editar_medico(codigo):
-    usuario = recuperar_usuario()
-    if usuario == None:
-        return redirect(url_for('login'))
-    if usuario.rol != 'Administrador':
-        return redirect(url_for('index'))
+    tiene_permiso, ruta = verificar_sesion(['Administrador'])
+    if not tiene_permiso:
+        return redirect(url_for(ruta))
 
     if request.method == 'POST':
         data = request.form
@@ -114,11 +107,9 @@ def editar_medico(codigo):
 
 @app.route('/eliminar_medico/<int:codigo>')
 def eliminar_medico(codigo):
-    usuario = recuperar_usuario()
-    if usuario == None:
-        return redirect(url_for('login'))
-    if usuario.rol != 'Administrador':
-        return redirect(url_for('index'))
+    tiene_permiso, ruta = verificar_sesion(['Administrador'])
+    if not tiene_permiso:
+        return redirect(url_for(ruta))
 
     controlador.eliminar_medico(codigo)
 
@@ -129,11 +120,9 @@ def eliminar_medico(codigo):
 
 @app.route('/registrar_paciente', methods=['GET', 'POST'])
 def registrar_paciente():
-    usuario = recuperar_usuario()
-    if usuario == None:
-        return redirect(url_for('login'))
-    if usuario.rol != 'Administrador' and usuario.rol != 'Medico':
-        return redirect(url_for('index'))
+    tiene_permiso, ruta = verificar_sesion(['Administrador', 'Medico'])
+    if not tiene_permiso:
+        return redirect(url_for(ruta))
 
     if request.method == 'POST':
         data = request.form
@@ -174,24 +163,18 @@ def registrar_medicamento():
 
 @app.route('/lista_medicamentos')
 def lista_medicamentos():
-    usuario = recuperar_usuario()
-    if usuario == None:
-        return redirect(url_for('login'))
-    if usuario.rol != 'Administrador' and usuario.rol != 'Medico':
-        return redirect(url_for('index'))
-
+    tiene_permiso, ruta = verificar_sesion(['Administrador', 'Medico'])
+    if not tiene_permiso:
+        return redirect(url_for(ruta))
     medicamentos = controlador.recuperar_medicamentos()
-
     return render_template('medicamentos/lista.html', data={'medicamentos': medicamentos})
 
 
 @app.route('/editar_medicamento/<int:codigo>', methods=['GET', 'POST'])
 def editar_medicamento(codigo):
-    usuario = recuperar_usuario()
-    if usuario == None:
-        return redirect(url_for('login'))
-    if usuario.rol != 'Administrador' and usuario.rol != 'Medico':
-        return redirect(url_for('index'))
+    tiene_permiso, ruta = verificar_sesion(['Administrador', 'Medico'])
+    if not tiene_permiso:
+        return redirect(url_for(ruta))
 
     if request.method == 'POST':
         data = request.form
@@ -213,11 +196,9 @@ def editar_medicamento(codigo):
 
 @app.route('/eliminar_medicamento/<int:codigo>')
 def eliminar_medicamento(codigo):
-    usuario = recuperar_usuario()
-    if usuario == None:
-        return redirect(url_for('login'))
-    if usuario.rol != 'Administrador' and usuario.rol != 'Medico':
-        return redirect(url_for('index'))
+    tiene_permiso, ruta = verificar_sesion(['Administrador', 'Medico'])
+    if not tiene_permiso:
+        return redirect(url_for(ruta))
 
     controlador.eliminar_medicamento(codigo)
 
@@ -231,6 +212,23 @@ def recuperar_usuario():
     except:
         usuario = None
     return usuario
+
+
+def verificar_sesion(roles=[]):
+
+    usuario = recuperar_usuario()
+
+    if usuario == None:
+        return (False, 'login')
+
+    tiene_permiso = False
+    for rol in roles:
+        tiene_permiso += (rol == usuario.rol)
+
+    if not tiene_permiso:
+        return (False, 'index')
+
+    return (True, '')
 
 
 if __name__ == '__main__':
