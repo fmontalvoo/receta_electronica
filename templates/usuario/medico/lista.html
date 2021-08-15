@@ -1,0 +1,35 @@
+{% extends './index.html' %}
+
+{% block title %}Listado Medicos{% endblock title %}
+
+{% block content %}
+<h2>Listado Medicos</h2>
+{% if data %}
+<a href="{{ url_for('registrar_medico') }}">Registrar medico</a>
+<table>
+    <thead>
+        <th>Nombres</th>
+        <th>Apellidos</th>
+        <th>Correo</th>
+        <th>Especialidad</th>
+    </thead>
+    <tbody>
+        {% for medico in data.medicos %}
+        <tr>
+            <td>{{medico.nombres}}</td>
+            <td>{{medico.apellidos}}</td>
+            <td>{{medico.correo}}</td>
+            <td>{{medico.especialidad}}</td>
+            <td>
+                <a href="{{ url_for('editar_medico', codigo=medico.codigo) }}">Editar</a>
+                <a id="btn-delete" href="{{ url_for('eliminar_medico', codigo=medico.codigo) }}">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock scripts %}
+{% endblock content %}

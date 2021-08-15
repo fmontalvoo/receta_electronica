@@ -6,7 +6,7 @@
         </li>
         {% if session['rol'] == 'Administrador' %}
         <li>
-            <a href="{{ url_for('registrar_medico') }}">Registrar medico</a>
+            <a href="{{ url_for('lista_medicos') }}">Medicos</a>
         </li>
         {% endif %}
         {% if session['rol'] == 'Administrador' or session['rol'] == 'Medico' %}

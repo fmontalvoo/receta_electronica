@@ -2,10 +2,9 @@ from .conexion_db import obtener_conexion
 
 from modelos.medicamento import *
 
-conexion = obtener_conexion()
-
 
 def registrar_medicamento(medicamento):
+    conexion = obtener_conexion()
     with conexion.cursor() as cursor:
         sql = "INSERT INTO medicamento(nombre, registro_sanitario, fecha_elaboracion, fecha_vencimiento) values(%s, %s, %s, %s)"
         cursor.execute(sql, (medicamento.nombre, medicamento.registro_sanitario,
@@ -14,6 +13,7 @@ def registrar_medicamento(medicamento):
 
 
 def recuperar_medicamento(codigo):
+    conexion = obtener_conexion()
     with conexion .cursor() as cursor:
         sql = "SELECT * FROM medicamento WHERE codigo=%s"
         cursor.execute(sql, (codigo))
@@ -25,6 +25,7 @@ def recuperar_medicamento(codigo):
 
 
 def editar_medicamento(medicamento):
+    conexion = obtener_conexion()
     with conexion.cursor() as cursor:
         sql = "UPDATE medicamento SET nombre=%s, registro_sanitario=%s, fecha_elaboracion=%s, fecha_vencimiento=%s WHERE codigo=%s"
         cursor.execute(sql, (medicamento.nombre, medicamento.registro_sanitario,
@@ -33,6 +34,7 @@ def editar_medicamento(medicamento):
 
 
 def eliminar_medicamento(codigo):
+    conexion = obtener_conexion()
     with conexion.cursor() as cursor:
         sql = "DELETE FROM medicamento WHERE codigo=%s"
         cursor.execute(sql, (codigo))
@@ -40,6 +42,7 @@ def eliminar_medicamento(codigo):
 
 
 def recuperar_medicamentos():
+    conexion = obtener_conexion()
     with conexion .cursor() as cursor:
         sql = "SELECT * FROM medicamento"
         cursor.execute(sql)

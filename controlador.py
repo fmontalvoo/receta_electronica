@@ -13,12 +13,28 @@ def login(correo, clave):
 
 
 def registrar_medico(nombres, apellidos, correo, especialidad, clave):
-    medico = Medico(nombres, apellidos, correo, especialidad, clave)
+    medico = Medico(0, nombres, apellidos, correo, especialidad, clave)
     mdao.registrar_medico(medico)
 
 
+def recuperar_medico(codigo):
+    return mdao.recuperar_medico(codigo)
+
+
+def editar_medico(codigo, nombres, apellidos, correo, especialidad, clave):
+    medico = Medico(codigo, nombres, apellidos, correo, especialidad, clave)
+    mdao.editar_medico(medico)
+
+def eliminar_medico(codigo):
+    mdao.eliminar_medico(codigo)
+
+def recuperar_medicos():
+    return mdao.recuperar_medicos()
+
+
 def registrar_paciente(nombres, apellidos, correo, historial_clinico, clave):
-    paciente = Paciente(nombres, apellidos, correo, historial_clinico, clave)
+    paciente = Paciente(0, nombres, apellidos, correo,
+                        historial_clinico, clave)
     pdao.registrar_paciente(paciente)
 
 
@@ -39,7 +55,7 @@ def recuperar_medicamento(codigo):
 
 
 def eliminar_medicamento(codigo):
-    return medao.eliminar_medicamento(codigo)
+    medao.eliminar_medicamento(codigo)
 
 
 def recuperar_medicamentos():

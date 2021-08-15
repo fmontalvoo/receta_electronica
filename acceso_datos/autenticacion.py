@@ -27,9 +27,11 @@ def recuperar_medico(codigo, correo, rol):
         sql = "SELECT * FROM medico WHERE codigo_usuario=%s"
         cursor.execute(sql, (codigo))
         result = cursor.fetchone()
-        print(result)
-        nombre_completo = f"{result['nombres']} {result['apellidos']}"
-        return Usuario(codigo, nombre_completo, correo, rol)
+        if result != None:
+            codigo = result['codigo']
+            nombre_completo = f"{result['nombres']} {result['apellidos']}"
+            return Usuario(codigo, nombre_completo, correo, rol)
+        return None
 
 
 def recuperar_paciente(codigo, correo, rol):
@@ -37,5 +39,8 @@ def recuperar_paciente(codigo, correo, rol):
         sql = "SELECT * FROM paciente WHERE codigo_usuario=%s"
         cursor.execute(sql, (codigo))
         result = cursor.fetchone()
-        nombre_completo = f"{result['nombres']} {result['apellidos']}"
-        return Usuario(codigo, nombre_completo, correo, rol)
+        if result != None:
+            codigo = result['codigo']
+            nombre_completo = f"{result['nombres']} {result['apellidos']}"
+            return Usuario(codigo, nombre_completo, correo, rol)
+        return None

@@ -22,7 +22,7 @@
             <td>{{medicamento.fecha_elaboracion}}</td>
             <td>{{medicamento.fecha_vencimiento}}</td>
             <td>
-                <a href="{{ url_for('editar_medicamento', codigo=medicamento.codigo) }}">Actulizar</a>
+                <a href="{{ url_for('editar_medicamento', codigo=medicamento.codigo) }}">Editar</a>
                 <a id="btn-delete" href="{{ url_for('eliminar_medicamento', codigo=medicamento.codigo) }}">Eliminar</a>
             </td>
         </tr>
