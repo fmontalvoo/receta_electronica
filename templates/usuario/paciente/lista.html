@@ -3,15 +3,15 @@
 {% block title %}Listado Pacientes{% endblock title %}
 
 {% block content %}
-<h2>Listado Pacientes</h2>
 {% if data %}
-<a href="{{ url_for('registrar_paciente') }}">Registrar paciente</a>
-<table>
+<a class="button is-success is-outlined" href="{{ url_for('registrar_paciente') }}">Registrar paciente</a>
+<table class="table mt-5">
     <thead>
         <th>Nombres</th>
         <th>Apellidos</th>
         <th>Correo</th>
         <th># Historia Clinica</th>
+        <th>Acciones</th>
     </thead>
     <tbody>
         {% for paciente in data.pacientes %}
@@ -21,8 +21,9 @@
             <td>{{paciente.correo}}</td>
             <td>{{paciente.historial_clinico}}</td>
             <td>
-                <a href="{{ url_for('editar_paciente', codigo=paciente.codigo) }}">Editar</a>
-                <a id="btn-delete" href="{{ url_for('eliminar_paciente', codigo=paciente.codigo) }}">Eliminar</a>
+                <a class="button is-warning" href="{{ url_for('editar_paciente', codigo=paciente.codigo) }}">Editar</a>
+                <a class="button is-danger" id="btn-delete"
+                    href="{{ url_for('eliminar_paciente', codigo=paciente.codigo) }}">Eliminar</a>
             </td>
         </tr>
         {% endfor %}

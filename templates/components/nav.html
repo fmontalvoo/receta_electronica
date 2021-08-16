@@ -1,24 +1,37 @@
-<nav>
-    <h2>{{session['rol']}}</h2>
-    <ul>
-        <li>
-            <a href="{{ url_for('index') }}">Inicio</a>
-        </li>
-        {% if session['rol'] == 'Administrador' %}
-        <li>
-            <a href="{{ url_for('lista_medicos') }}">Medicos</a>
-        </li>
-        {% endif %}
-        {% if session['rol'] == 'Administrador' or session['rol'] == 'Medico' %}
-        <li>
-            <a href="{{ url_for('lista_pacientes') }}">Pacientes</a>
-        </li>
-        <li>
-            <a href="{{ url_for('lista_medicamentos') }}">Medicamentos</a>
-        </li>
-        {% endif %}
-        <li>
-            <a href="{{ url_for('logout') }}">Cerrar sesion</a>
-        </li>
-    </ul>
+<nav class="navbar is-light" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="{{ url_for('index') }}">
+        <img src="{{ url_for('static', filename='img/icono.png') }}" width="90">
+      </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+
+            {% if session['rol'] == 'Administrador' %}
+            <a class="navbar-item" href="{{ url_for('lista_medicos') }}">
+                Medicos
+            </a>
+            {% endif %}
+            {% if session['rol'] == 'Administrador' or session['rol'] == 'Medico' %}
+            <a class="navbar-item" href="{{ url_for('lista_pacientes') }}">
+                Pacientes
+            </a>
+            <a class="navbar-item" href="{{ url_for('lista_medicamentos') }}">
+                Medicamentos
+            </a>
+            {% endif %}
+
+        </div>
+
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a class="button is-warning" href="{{ url_for('logout') }}">
+                        <strong>Cerrar sesi&oacute;n</strong>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </nav>

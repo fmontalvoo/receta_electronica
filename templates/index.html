@@ -4,6 +4,12 @@
 
 {% block body %}
 {% include './components/nav.html' %}
-{% block content %}
-{% endblock content %}
+<div class="container mt-5">
+    <div class="columns is-centered">
+        <div class="column is-narrow">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </div>
+</div>
 {% endblock body %}

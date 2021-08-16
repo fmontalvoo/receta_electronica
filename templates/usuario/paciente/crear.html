@@ -1,32 +1,60 @@
 {% extends './index.html' %}
 
+{% block estilos %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock estilos %}
+
+
 {% block title %}Registrar paciente{% endblock title %}
 
 {% block content %}
-<h2>Crear paciente</h2>
-<form action="/registrar_paciente" method="post">
-    <div>
-        <label for="nombres">Nombres</label>
-        <input type="text" name="nombres" id="nombres">
-    </div>
-    <div>
-        <label for="apellidos">Apellidos</label>
-        <input type="text" name="apellidos" id="apellidos">
-    </div>
-    <div>
-        <label for="correo">Correo</label>
-        <input type="email" name="correo" id="correo">
-    </div>
-    <div>
-        <label for="historia_clinica">Numero de historia clinica</label>
-        <input type="text" name="historia_clinica" id="historia_clinica">
-    </div>
-    <div>
-        <label for="clave">Constraseña</label>
-        <input type="password" name="clave" id="clave">
-    </div>
+<div class="columns is-centered">
+    <div class="card">
+        <div class="card-content">
 
-    <button type="submit">Registrar</button>
+            <p class="card-header-title is-centered">
+                Crear paciente
+            </p>
+            <form action="/registrar_paciente" method="post">
+                <div class="field">
+                    <label class="label" for="nombres">Nombres</label>
+                    <div class="control">
+                        <input class="input" type="text" name="nombres" id="nombres">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="apellidos">Apellidos</label>
+                    <div class="control">
+                        <input class="input" type="text" name="nombres" id="nombres">
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="correo" class="label">Correo</label>
+                    <div class="control">
+                        <input class="input" type="email" name="correo" id="correo">
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="historia_clinica" class="label">Numero de historia clinica</label>
+                    <div class="control">
+                        <input class="input" type="text" name="historia_clinica" id="historia_clinica">
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="clave" class="label">Constraseña</label>
+                    <div class="control">
+                        <input class="input" type="password" name="clave" id="clave">
+                    </div>
+                </div>
 
-</form>
+                <div class="field is-grouped is-grouped-centered mt-3">
+                    <p class="control">
+                        <button class="button is-info is-rounded" type="submit">Registrar</button>
+                    </p>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock content %}

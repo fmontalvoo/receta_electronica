@@ -1,34 +1,60 @@
 {% extends './index.html' %}
 
-{% block title %}Registrar medico{% endblock title %}
+{% block estilos %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock estilos %}
+
+
+{% block title %}Editar medico{% endblock title %}
 
 {% block content %}
-<h2>Crear medico</h2>
-{% if medico %}
-<form action="/editar_medico/{{medico.codigo}}" method="post">
-    <div>
-        <label for="nombres">Nombres</label>
-        <input type="text" name="nombres" id="nombres" value="{{medico.nombres}}">
-    </div>
-    <div>
-        <label for="apellidos">Apellidos</label>
-        <input type="text" name="apellidos" id="apellidos" value="{{medico.apellidos}}">
-    </div>
-    <div>
-        <label for="correo">Correo</label>
-        <input type="email" name="correo" id="correo" value="{{medico.correo}}">
-    </div>
-    <div>
-        <label for="especialidad">Especialidad</label>
-        <input type="text" name="especialidad" id="especialidad" value="{{medico.especialidad}}">
-    </div>
-    <div>
-        <label for="clave">Constraseña</label>
-        <input type="password" name="clave" id="clave" value="{{medico.clave}}">
-    </div>
+<div class="columns is-centered">
+    <div class="card">
+        <div class="card-content">
 
-    <button type="submit">Editar</button>
+            <p class="card-header-title is-centered">
+                Editar medico
+            </p>
+            <form action="/editar_medico/{{medico.codigo}}" method="post">
+                <div class="field">
+                    <label class="label" for="nombres">Nombres</label>
+                    <div class="control">
+                        <input class="input" type="text" name="nombres" id="nombres" value="{{medico.nombres}}">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="apellidos">Apellidos</label>
+                    <div class="control">
+                        <input class="input" type="text" name="nombres" id="nombres" value="{{medico.apellidos}}">
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="correo" class="label">Correo</label>
+                    <div class="control">
+                        <input class="input" type="email" name="correo" id="correo" value="{{medico.correo}}">
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="especialidad" class="label">Especialidad</label>
+                    <div class="control">
+                        <input class="input" type="text" name="especialidad" id="especialidad" value="{{medico.especialidad}}">
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="clave" class="label">Constraseña</label>
+                    <div class="control">
+                        <input class="input" type="password" name="clave" id="clave" value="{{medico.clave}}">
+                    </div>
+                </div>
 
-</form>
-{% endif %}
+                <div class="field is-grouped is-grouped-centered mt-3">
+                    <p class="control">
+                        <button class="button is-info is-rounded" type="submit">Editar</button>
+                    </p>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock content %}

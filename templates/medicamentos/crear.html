@@ -1,28 +1,53 @@
 {% extends './index.html' %}
 
+{% block estilos %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock estilos %}
+
 {% block title %}Registrar medicamentos{% endblock title %}
 
 {% block content %}
-<h2>Registrar Medicamento</h2>
-<form action="/registrar_medicamento" method="post">
-    <div>
-        <label for="nombre">Nombre</label>
-        <input type="text" name="nombre" id="nombre">
-    </div>
-    <div>
-        <label for="registro">Registro sanitario</label>
-        <input type="text" name="registro" id="registro">
-    </div>
-    <div>
-        <label for="fecha_elaboracion">Fecha elaboracion</label>
-        <input type="text" name="fecha_elaboracion" id="fecha_elaboracion">
-    </div>
-    <div>
-        <label for="fecha_vencimiento">Fecha vencimiento</label>
-        <input type="text" name="fecha_vencimiento" id="fecha_vencimiento">
-    </div>
+<div class="columns is-centered">
+    <div class="card">
+        <div class="card-content">
 
-    <button type="submit">Registrar</button>
+            <p class="card-header-title is-centered">
+                Registrar Medicamento
+            </p>
+            <form action="/registrar_medicamento" method="post">
+                <div class="field">
+                    <label class="label" for="nombre">Nombre</label>
+                    <div class="control">
+                        <input class="input" type="text" name="nombre" id="nombre">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="registro">Registro sanitario</label>
+                    <div class="control">
+                        <input class="input" type="text" name="registro" id="registro">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="fecha_elaboracion">Fecha elaboracion</label>
+                    <div class="control">
+                        <input class="input" type="text" name="fecha_elaboracion" id="fecha_elaboracion">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="fecha_vencimiento">Fecha vencimiento</label>
+                    <div class="control">
+                        <input class="input" type="text" name="fecha_vencimiento" id="fecha_vencimiento">
+                    </div>
+                </div>
 
-</form>
+                <div class="field is-grouped is-grouped-centered mt-3">
+                    <p class="control">
+                        <button class="button is-info is-rounded" type="submit">Registrar</button>
+                    </p>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock content %}

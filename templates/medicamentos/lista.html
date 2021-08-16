@@ -3,10 +3,9 @@
 {% block title %}Listado Medicamentos{% endblock title %}
 
 {% block content %}
-<h2>Listado Medicamentos</h2>
 {% if data %}
-<a href="{{ url_for('registrar_medicamento') }}">Registrar nuevo medicamento</a>
-<table>
+<a class="button is-success is-outlined" href="{{ url_for('registrar_medicamento') }}">Registrar nuevo medicamento</a>
+<table class="table mt-5">
     <thead>
         <th>Nombre</th>
         <th>Registro sanitario</th>
@@ -22,8 +21,10 @@
             <td>{{medicamento.fecha_elaboracion}}</td>
             <td>{{medicamento.fecha_vencimiento}}</td>
             <td>
-                <a href="{{ url_for('editar_medicamento', codigo=medicamento.codigo) }}">Editar</a>
-                <a id="btn-delete" href="{{ url_for('eliminar_medicamento', codigo=medicamento.codigo) }}">Eliminar</a>
+                <a class="button is-warning"
+                    href="{{ url_for('editar_medicamento', codigo=medicamento.codigo) }}">Editar</a>
+                <a class="button is-danger" id="btn-delete"
+                    href="{{ url_for('eliminar_medicamento', codigo=medicamento.codigo) }}">Eliminar</a>
             </td>
         </tr>
         {% endfor %}
@@ -31,6 +32,6 @@
 </table>
 {% endif %}
 {% block scripts %}
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
 {% endblock scripts %}
 {% endblock content %}

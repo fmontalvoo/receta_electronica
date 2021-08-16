@@ -1,21 +1,46 @@
 {% extends './template.html' %}
 
+{% block estilos %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock estilos %}
+
 {% block title %}Login{% endblock title %}
 
 {% block body %}
 
-<h1>Iniciar sesion</h1>
+<div class="container mt-5">
+    <div class="columns is-centered">
+        <div class="card">
+            <div class="card-content">
 
-<form autocomplete="off" action="/login" method="POST">
-    <div>
-        <label for="correo">Correo</label>
-        <input type="text" name="correo" id="correo">
+                <p class="card-header-title is-centered">
+                    Iniciar sesi&oacute;n
+                </p>
+
+                <form autocomplete="off" action="/login" method="POST">
+                    <div class="field">
+                        <label class="label" for="correo">Correo</label>
+                        <div class="control">
+                            <input class="input" type="email" name="correo" id="correo" placeholder="ejemplo@email.com">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="clave">Contrase&ntilde;a</label>
+                        <div class="control">
+                            <input class="input" type="password" name="clave" id="clave"
+                                placeholder="Su contrase&ntilde;a">
+                        </div>
+                    </div>
+                    <div class="field is-grouped is-grouped-centered mt-3">
+                        <p class="control">
+                            <button class="button is-link is-rounded" type="submit">Ingresar</button>
+                        </p>
+                    </div>
+                </form>
+
+            </div>
+        </div>
     </div>
-    <div>
-        <label for="clave">Contraseña</label>
-        <input type="password" name="clave" id="clave">
-    </div>
-    <button type="submit">Ingresar</button>
-</form>
+</div>
 
 {% endblock body %}
