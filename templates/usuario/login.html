@@ -9,36 +9,33 @@
 {% block body %}
 
 <div class="container mt-5">
-    <div class="columns is-centered">
-        <div class="card">
-            <div class="card-content">
+    <div class="card">
+        <div class="card-content">
 
-                <p class="card-header-title is-centered">
-                    Iniciar sesi&oacute;n
-                </p>
+            <p class="card-header-title is-centered">
+                Iniciar sesi&oacute;n
+            </p>
 
-                <form autocomplete="off" action="/login" method="POST">
-                    <div class="field">
-                        <label class="label" for="correo">Correo</label>
-                        <div class="control">
-                            <input class="input" type="email" name="correo" id="correo" placeholder="ejemplo@email.com">
-                        </div>
+            <form autocomplete="off" action="/login" method="POST">
+                <div class="field">
+                    <label class="label" for="correo">Correo</label>
+                    <div class="control">
+                        <input class="input" type="email" name="correo" id="correo" placeholder="ejemplo@email.com">
                     </div>
-                    <div class="field">
-                        <label class="label" for="clave">Contrase&ntilde;a</label>
-                        <div class="control">
-                            <input class="input" type="password" name="clave" id="clave"
-                                placeholder="Su contrase&ntilde;a">
-                        </div>
+                </div>
+                <div class="field">
+                    <label class="label" for="clave">Contrase&ntilde;a</label>
+                    <div class="control">
+                        <input class="input" type="password" name="clave" id="clave" placeholder="Su contrase&ntilde;a">
                     </div>
-                    <div class="field is-grouped is-grouped-centered mt-3">
-                        <p class="control">
-                            <button class="button is-link is-rounded" type="submit">Ingresar</button>
-                        </p>
-                    </div>
-                </form>
+                </div>
+                <div class="field is-grouped is-grouped-centered mt-3">
+                    <p class="control">
+                        <button class="button is-link is-rounded" type="submit">Ingresar</button>
+                    </p>
+                </div>
+            </form>
 
-            </div>
         </div>
     </div>
 </div>

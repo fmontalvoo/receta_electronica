@@ -1,15 +1,10 @@
 {% extends './index.html' %}
 
-{% block estilos %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-{% endblock estilos %}
-
-
 {% block title %}Editar paciente{% endblock title %}
 
 {% block content %}
 <div class="columns is-centered">
-    <div class="card">
+    <div class="card mt-4">
         <div class="card-content">
 
             <p class="card-header-title is-centered">
@@ -50,7 +45,7 @@
 
                 <div class="field is-grouped is-grouped-centered mt-3">
                     <p class="control">
-                        <button class="button is-info is-rounded" type="submit">Registrar</button>
+                        <button class="button is-info is-rounded" type="submit">Editar</button>
                     </p>
                 </div>
 
