@@ -2,10 +2,9 @@ from .conexion_db import obtener_conexion
 
 from modelos.usuario import *
 
-conexion = obtener_conexion()
-
 
 def recuperar_usuario(correo, clave):
+    conexion = obtener_conexion()
     with conexion.cursor() as cursor:
         sql = "SELECT * FROM usuario WHERE correo=%s AND clave=%s"
         cursor.execute(sql, (correo, clave))
@@ -23,6 +22,7 @@ def recuperar_usuario(correo, clave):
 
 
 def recuperar_medico(codigo, correo, rol):
+    conexion = obtener_conexion()
     with conexion.cursor() as cursor:
         sql = "SELECT * FROM medico WHERE codigo_usuario=%s"
         cursor.execute(sql, (codigo))
@@ -35,6 +35,7 @@ def recuperar_medico(codigo, correo, rol):
 
 
 def recuperar_paciente(codigo, correo, rol):
+    conexion = obtener_conexion()
     with conexion.cursor() as cursor:
         sql = "SELECT * FROM paciente WHERE codigo_usuario=%s"
         cursor.execute(sql, (codigo))

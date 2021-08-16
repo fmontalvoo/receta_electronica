@@ -2,10 +2,9 @@ from .conexion_db import obtener_conexion
 
 from modelos.paciente import *
 
-conexion = obtener_conexion()
-
 
 def registrar_paciente(paciente):
+    conexion = obtener_conexion()
     with conexion:
         with conexion.cursor() as cursor:
             sql = "INSERT INTO usuario (correo, clave, rol) values(%s, %s, %s)"
