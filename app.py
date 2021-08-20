@@ -1,3 +1,5 @@
+from datetime import date
+
 from flask import Flask, render_template, request, redirect, url_for, session
 
 from decouple import config
@@ -247,6 +249,22 @@ def eliminar_medicamento(codigo):
     controlador.eliminar_medicamento(codigo)
 
     return redirect(url_for('lista_medicamentos'))
+
+    """C.R.U.D de Receta medica"""
+
+
+@app.route('/crear_receta/<int:codigo>', methods=['GET', 'POST'])
+def crear_receta(codigo):
+    tiene_permiso, ruta = verificar_sesion(['Medico'])
+    if not tiene_permiso:
+        return redirect(url_for(ruta))
+
+    hoy = date.today()
+    fecha = hoy.strftime("%d/%m/%Y")
+
+    paciente = controlador.recuperar_paciente(codigo)
+    medicamentos = controlador.recuperar_medicamentos()
+    return render_template('receta/crear.html', data={'fecha': fecha, 'paciente': paciente, 'medicamentos': medicamentos})
 
 
 def recuperar_usuario():

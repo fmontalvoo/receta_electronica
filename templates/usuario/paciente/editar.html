@@ -3,54 +3,52 @@
 {% block title %}Editar paciente{% endblock title %}
 
 {% block content %}
-<div class="columns is-centered">
-    <div class="card mt-4">
-        <div class="card-content">
+<div class="card mt-4">
+    <div class="card-content">
 
-            <p class="card-header-title is-centered">
-                Crear paciente
-            </p>
-            <form action="/editar_paciente/{{paciente.codigo}}" method="post">
-                <div class="field">
-                    <label class="label" for="nombres">Nombres</label>
-                    <div class="control">
-                        <input class="input" type="text" name="nombres" id="nombres" value="{{paciente.nombres}}">
-                    </div>
+        <p class="card-header-title is-centered">
+            Crear paciente
+        </p>
+        <form action="/editar_paciente/{{paciente.codigo}}" method="post">
+            <div class="field">
+                <label class="label" for="nombres">Nombres</label>
+                <div class="control">
+                    <input class="input" type="text" name="nombres" id="nombres" value="{{paciente.nombres}}">
                 </div>
-                <div class="field">
-                    <label class="label" for="apellidos">Apellidos</label>
-                    <div class="control">
-                        <input class="input" type="text" name="apellidos" id="apellidos" value="{{paciente.apellidos}}">
-                    </div>
+            </div>
+            <div class="field">
+                <label class="label" for="apellidos">Apellidos</label>
+                <div class="control">
+                    <input class="input" type="text" name="apellidos" id="apellidos" value="{{paciente.apellidos}}">
                 </div>
-                <div class="field">
-                    <label for="correo" class="label">Correo</label>
-                    <div class="control">
-                        <input class="input" type="email" name="correo" id="correo" value="{{paciente.correo}}">
-                    </div>
+            </div>
+            <div class="field">
+                <label for="correo" class="label">Correo</label>
+                <div class="control">
+                    <input class="input" type="email" name="correo" id="correo" value="{{paciente.correo}}">
                 </div>
-                <div class="field">
-                    <label for="historia_clinica" class="label">Numero de historia clinica</label>
-                    <div class="control">
-                        <input class="input" type="text" name="historia_clinica" id="historia_clinica"
-                            value="{{paciente.historial_clinico}}">
-                    </div>
+            </div>
+            <div class="field">
+                <label for="historia_clinica" class="label">Numero de historia clinica</label>
+                <div class="control">
+                    <input class="input" type="text" name="historia_clinica" id="historia_clinica"
+                        value="{{paciente.historial_clinico}}">
                 </div>
-                <div class="field">
-                    <label for="clave" class="label">Constraseña</label>
-                    <div class="control">
-                        <input class="input" type="password" name="clave" id="clave" value="{{paciente.clave}}">
-                    </div>
+            </div>
+            <div class="field">
+                <label for="clave" class="label">Constraseña</label>
+                <div class="control">
+                    <input class="input" type="password" name="clave" id="clave" value="{{paciente.clave}}">
                 </div>
+            </div>
 
-                <div class="field is-grouped is-grouped-centered mt-3">
-                    <p class="control">
-                        <button class="button is-info is-rounded" type="submit">Editar</button>
-                    </p>
-                </div>
+            <div class="field is-grouped is-grouped-centered mt-3">
+                <p class="control">
+                    <button class="button is-info is-rounded" type="submit">Editar</button>
+                </p>
+            </div>
 
-            </form>
-        </div>
+        </form>
     </div>
 </div>
 {% endblock content %}

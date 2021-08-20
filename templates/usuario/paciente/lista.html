@@ -22,6 +22,11 @@
             <td>{{paciente.historial_clinico}}</td>
             <td>
                 <a class="button is-warning" href="{{ url_for('editar_paciente', codigo=paciente.codigo) }}">Editar</a>
+                {% if session['rol'] == 'Medico' %}
+                <a class="button is-link" href="{{ url_for('crear_receta', codigo=paciente.codigo) }}">
+                    Recetar
+                </a>
+                {% endif %}
                 <a class="button is-danger" id="btn-delete"
                     href="{{ url_for('eliminar_paciente', codigo=paciente.codigo) }}">Eliminar</a>
             </td>

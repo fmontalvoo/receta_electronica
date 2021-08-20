@@ -3,54 +3,52 @@
 {% block title %}Editar medico{% endblock title %}
 
 {% block content %}
-<div class="columns is-centered">
-    <div class="card mt-4">
-        <div class="card-content">
+<div class="card mt-4">
+    <div class="card-content">
 
-            <p class="card-header-title is-centered">
-                Editar medico
-            </p>
-            <form action="/editar_medico/{{medico.codigo}}" method="post">
-                <div class="field">
-                    <label class="label" for="nombres">Nombres</label>
-                    <div class="control">
-                        <input class="input" type="text" name="nombres" id="nombres" value="{{medico.nombres}}">
-                    </div>
+        <p class="card-header-title is-centered">
+            Editar medico
+        </p>
+        <form action="/editar_medico/{{medico.codigo}}" method="post">
+            <div class="field">
+                <label class="label" for="nombres">Nombres</label>
+                <div class="control">
+                    <input class="input" type="text" name="nombres" id="nombres" value="{{medico.nombres}}">
                 </div>
-                <div class="field">
-                    <label class="label" for="apellidos">Apellidos</label>
-                    <div class="control">
-                        <input class="input" type="text" name="apellidos" id="apellidos" value="{{medico.apellidos}}">
-                    </div>
+            </div>
+            <div class="field">
+                <label class="label" for="apellidos">Apellidos</label>
+                <div class="control">
+                    <input class="input" type="text" name="apellidos" id="apellidos" value="{{medico.apellidos}}">
                 </div>
-                <div class="field">
-                    <label for="correo" class="label">Correo</label>
-                    <div class="control">
-                        <input class="input" type="email" name="correo" id="correo" value="{{medico.correo}}">
-                    </div>
+            </div>
+            <div class="field">
+                <label for="correo" class="label">Correo</label>
+                <div class="control">
+                    <input class="input" type="email" name="correo" id="correo" value="{{medico.correo}}">
                 </div>
-                <div class="field">
-                    <label for="especialidad" class="label">Especialidad</label>
-                    <div class="control">
-                        <input class="input" type="text" name="especialidad" id="especialidad"
-                            value="{{medico.especialidad}}">
-                    </div>
+            </div>
+            <div class="field">
+                <label for="especialidad" class="label">Especialidad</label>
+                <div class="control">
+                    <input class="input" type="text" name="especialidad" id="especialidad"
+                        value="{{medico.especialidad}}">
                 </div>
-                <div class="field">
-                    <label for="clave" class="label">Constraseña</label>
-                    <div class="control">
-                        <input class="input" type="password" name="clave" id="clave" value="{{medico.clave}}">
-                    </div>
+            </div>
+            <div class="field">
+                <label for="clave" class="label">Constraseña</label>
+                <div class="control">
+                    <input class="input" type="password" name="clave" id="clave" value="{{medico.clave}}">
                 </div>
+            </div>
 
-                <div class="field is-grouped is-grouped-centered mt-3">
-                    <p class="control">
-                        <button class="button is-info is-rounded" type="submit">Editar</button>
-                    </p>
-                </div>
+            <div class="field is-grouped is-grouped-centered mt-3">
+                <p class="control">
+                    <button class="button is-info is-rounded" type="submit">Editar</button>
+                </p>
+            </div>
 
-            </form>
-        </div>
+        </form>
     </div>
 </div>
 {% endblock content %}

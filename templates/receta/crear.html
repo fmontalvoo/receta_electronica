@@ -1,0 +1,85 @@
+{% extends './index.html' %}
+
+{% block title %}Registrar medicamentos{% endblock title %}
+
+{% block content %}
+{% if data %}
+<!-- <a class="button is-success is-outlined" href=""></a> -->
+<div class="card mt-4">
+    <div class="card-content">
+
+        <p class="card-header-title is-centered">
+            Registrar Receta
+        </p>
+
+        <form id="formReceta" method="post">
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label"># Historia clinica</label>
+                        <p>{{data.paciente.historial_clinico}}</p>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Fecha</label>
+                        <div class="control">
+                            <p>{{data.fecha}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Paciente</label>
+                <div class="control">
+                    <p>{{data.paciente.nombres}} {{data.paciente.apellidos}}</p>
+                </div>
+            </div>
+            <table class="table mt-5">
+                <thead>
+                    <th>Nombre</th>
+                    <th>Agregar</th>
+                </thead>
+                <tbody>
+                    {% for medicamento in data.medicamentos %}
+                    <tr>
+                        <td>
+                            {{medicamento.nombre}}</td>
+                        <td>
+                            <label class="checkbox">
+                                <input id="{{medicamento.codigo}}" type="checkbox">
+                            </label>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="field is-grouped is-grouped-centered mt-3">
+                <p class="control">
+                    <button class="button is-info is-rounded" type="submit">Registrar</button>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+{% endif %}
+
+{% block scripts %}
+<script>
+    const formReceta = document.getElementById('formReceta');
+    formReceta.addEventListener('submit', submit);
+    function submit(evt) {
+
+        evt.preventDefault();
+        let seleccionados = document.querySelectorAll('input');
+
+        for (const medicamento of seleccionados) {
+            if (medicamento.checked)
+                console.log(medicamento.id, medicamento.checked);
+
+        }
+    }
+</script>
+{% endblock scripts %}
+
+{% endblock content %}

@@ -3,47 +3,48 @@
 {% block title %}Editar medicamentos{% endblock title %}
 
 {% block content %}
-<div class="columns is-centered">
-    <div class="card mt-4">
-        <div class="card-content">
+<div class="card mt-4">
+    <div class="card-content">
 
-            <p class="card-header-title is-centered">
-                Registrar Medicamento
-            </p>
-            <form aaction="/editar_medicamento/{{medicamento.codigo}}" method="post">
-                <div class="field">
-                    <label class="label" for="nombre">Nombre</label>
-                    <div class="control">
-                        <input class="input" type="text" name="nombre" id="nombre" value="{{medicamento.nombre}}">
-                    </div>
+        <p class="card-header-title is-centered">
+            Registrar Medicamento
+        </p>
+        <form aaction="/editar_medicamento/{{medicamento.codigo}}" method="post">
+            <div class="field">
+                <label class="label" for="nombre">Nombre</label>
+                <div class="control">
+                    <input class="input" type="text" name="nombre" id="nombre" value="{{medicamento.nombre}}">
                 </div>
-                <div class="field">
-                    <label class="label" for="registro">Registro sanitario</label>
-                    <div class="control">
-                        <input class="input" type="text" name="registro" id="registro" value="{{medicamento.registro_sanitario}}">
-                    </div>
+            </div>
+            <div class="field">
+                <label class="label" for="registro">Registro sanitario</label>
+                <div class="control">
+                    <input class="input" type="text" name="registro" id="registro"
+                        value="{{medicamento.registro_sanitario}}">
                 </div>
-                <div class="field">
-                    <label class="label" for="fecha_elaboracion">Fecha elaboracion</label>
-                    <div class="control">
-                        <input class="input" type="text" name="fecha_elaboracion" id="fecha_elaboracion" value="{{medicamento.fecha_elaboracion}}">
-                    </div>
+            </div>
+            <div class="field">
+                <label class="label" for="fecha_elaboracion">Fecha elaboracion</label>
+                <div class="control">
+                    <input class="input" type="text" name="fecha_elaboracion" id="fecha_elaboracion"
+                        value="{{medicamento.fecha_elaboracion}}">
                 </div>
-                <div class="field">
-                    <label class="label" for="fecha_vencimiento">Fecha vencimiento</label>
-                    <div class="control">
-                        <input class="input" type="text" name="fecha_vencimiento" id="fecha_vencimiento" value="{{medicamento.fecha_vencimiento}}">
-                    </div>
+            </div>
+            <div class="field">
+                <label class="label" for="fecha_vencimiento">Fecha vencimiento</label>
+                <div class="control">
+                    <input class="input" type="text" name="fecha_vencimiento" id="fecha_vencimiento"
+                        value="{{medicamento.fecha_vencimiento}}">
                 </div>
+            </div>
 
-                <div class="field is-grouped is-grouped-centered mt-3">
-                    <p class="control">
-                        <button class="button is-info is-rounded" type="submit">Editar</button>
-                    </p>
-                </div>
+            <div class="field is-grouped is-grouped-centered mt-3">
+                <p class="control">
+                    <button class="button is-info is-rounded" type="submit">Editar</button>
+                </p>
+            </div>
 
-            </form>
-        </div>
+        </form>
     </div>
 </div>
 {% endblock content %}
