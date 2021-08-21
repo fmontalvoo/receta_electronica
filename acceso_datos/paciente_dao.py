@@ -9,13 +9,7 @@ def registrar_paciente(paciente):
         with conexion.cursor() as cursor:
             sql = "INSERT INTO usuario (correo, clave, rol) values(%s, %s, %s)"
             cursor.execute(sql, (paciente.correo, paciente.clave, 'Paciente'))
-            # conexion.commit()
-
-        with conexion.cursor() as cursor:
-            sql = "SELECT codigo FROM usuario WHERE correo=%s"
-            cursor.execute(sql, (paciente.correo))
-            result = cursor.fetchone()
-            codigo = result['codigo']
+            codigo = cursor.lastrowid
 
         with conexion.cursor() as cursor:
             sql = "INSERT INTO paciente (codigo_usuario, nombres, apellidos, historial_clinico) values(%s, %s, %s, %s)"

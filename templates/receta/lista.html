@@ -1,0 +1,29 @@
+{% extends './index.html' %}
+
+{% block title %}Registrar medicamentos{% endblock title %}
+
+{% block content %}
+{% if data %}
+<table class="table mt-5">
+    <thead>
+        <th>HC</th>
+        <th>Paciente</th>
+        <th>Fecha</th>
+        <th>Acciones</th>
+    </thead>
+    <tbody>
+        {% for receta in data.recetas %}
+        <tr>
+            <th>{{receta.codigo_paciente.historial_clinico}}</th>
+            <th>{{receta.codigo_paciente.nombres}} {{receta.codigo_paciente.apellidos}}</th>
+            <th>{{receta.fecha}}</th>
+            <th>
+                <a class="button is-link" href="">Ver</a>
+            </th>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% endblock content %}

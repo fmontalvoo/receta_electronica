@@ -65,21 +65,7 @@
 {% endif %}
 
 {% block scripts %}
-<script>
-    const formReceta = document.getElementById('formReceta');
-    formReceta.addEventListener('submit', submit);
-    function submit(evt) {
-
-        evt.preventDefault();
-        let seleccionados = document.querySelectorAll('input');
-
-        for (const medicamento of seleccionados) {
-            if (medicamento.checked)
-                console.log(medicamento.id, medicamento.checked);
-
-        }
-    }
-</script>
+<script src="{{ url_for('static', filename='js/receta.js') }}"></script>
 {% endblock scripts %}
 
 {% endblock content %}

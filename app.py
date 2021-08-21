@@ -1,6 +1,6 @@
 from datetime import date
 
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 
 from decouple import config
 
@@ -228,7 +228,6 @@ def editar_medicamento(codigo):
         registro = data['registro']
         fecha_elaboracion = data['fecha_elaboracion']
         fecha_vencimiento = data['fecha_vencimiento']
-        print(data)
         controlador.editar_medicamento(codigo,
                                        nombre, registro,
                                        fecha_elaboracion,
@@ -260,11 +259,39 @@ def crear_receta(codigo):
         return redirect(url_for(ruta))
 
     hoy = date.today()
+    usuario = recuperar_usuario()
     fecha = hoy.strftime("%d/%m/%Y")
-
     paciente = controlador.recuperar_paciente(codigo)
     medicamentos = controlador.recuperar_medicamentos()
-    return render_template('receta/crear.html', data={'fecha': fecha, 'paciente': paciente, 'medicamentos': medicamentos})
+
+    if request.method == 'POST':
+        medicinas = request.json['medicamentos']
+        controlador.registrar_receta(
+            usuario.codigo, paciente.codigo, medicinas, fecha)
+        return jsonify({'status': 201})
+
+    return render_template('receta/crear.html',
+                           data={'fecha': fecha,
+                                 'paciente': paciente,
+                                 'medicamentos': medicamentos
+                                 })
+
+
+@app.route('/lista_recetas')
+def lista_recetas():
+    usuario = recuperar_usuario()
+    if usuario == None:
+        return redirect(url_for('login'))
+
+    tiene_permiso, _ = verificar_sesion(['Medico'])
+
+    if tiene_permiso:
+        recetas = controlador.recuperar_recetas_medico(
+            usuario.codigo)
+        return render_template('receta/lista.html', data={'recetas': recetas})
+
+    recetas = controlador.recuperar_recetas_paciente(usuario.codigo)
+    return render_template('receta/lista.html', data={'recetas': recetas})
 
 
 def recuperar_usuario():

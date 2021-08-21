@@ -2,10 +2,13 @@ import acceso_datos.autenticacion as auth
 import acceso_datos.medico_dao as mdao
 import acceso_datos.paciente_dao as pdao
 import acceso_datos.medicamento_dao as medao
+import acceso_datos.receta_dao as rdao
 
 from modelos.medico import *
 from modelos.paciente import *
 from modelos.medicamento import *
+from modelos.receta_cabecera import *
+from modelos.receta_detalle import *
 
 
 def login(correo, clave):
@@ -80,3 +83,42 @@ def eliminar_medicamento(codigo):
 
 def recuperar_medicamentos():
     return medao.recuperar_medicamentos()
+
+
+def registrar_receta(codigo_medico, codigo_paciente, medicamentos, fecha):
+    cabecera = RecetaCabecera(0, codigo_medico, codigo_paciente, fecha)
+    rdao.registrar_receta(cabecera, medicamentos)
+
+
+def recuperar_recetas_paciente(codigo):
+    recetas = []
+    for receta in rdao.recuperar_recetas_paciente(codigo):
+        cabecera = RecetaCabecera(receta.codigo, recuperar_medico(
+            receta.codigo_medico), recuperar_paciente(receta.codigo_paciente), receta.fecha)
+        recetas.append(cabecera)
+        # print(cab.codigo)
+        # detalles = []
+        # for d in det:
+        #     print(f'\t{d.codigo}, {d.codigo_cabecera}')
+        #     detalle = RecetaDetalle(
+        #         d.codigo, cab.codigo, recuperar_medicamento(d.codigo_medicamento))
+        #     detalles.append(detalle)
+        # recetas.append((cabecera, detalles))
+    return recetas
+
+
+def recuperar_recetas_medico(codigo):
+    recetas = []
+    for receta in rdao.recuperar_recetas_medico(codigo):
+        cabecera = RecetaCabecera(receta.codigo, recuperar_medico(
+            receta.codigo_medico), recuperar_paciente(receta.codigo_paciente), receta.fecha)
+        recetas.append(cabecera)
+        # print(cab.codigo)
+        # detalles = []
+        # for d in det:
+        #     print(f'\t{d.codigo}, {d.codigo_cabecera}')
+        #     detalle = RecetaDetalle(
+        #         d.codigo, cab.codigo, recuperar_medicamento(d.codigo_medicamento))
+        #     detalles.append(detalle)
+        # recetas.append((cabecera, detalles))
+    return recetas
