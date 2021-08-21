@@ -7,7 +7,11 @@
 <table class="table mt-5">
     <thead>
         <th>HC</th>
+        {% if session['rol'] == 'Medico' %}
         <th>Paciente</th>
+        {% else %}
+        <th>Medico</th>
+        {% endif %}
         <th>Fecha</th>
         <th>Acciones</th>
     </thead>
@@ -15,7 +19,11 @@
         {% for receta in data.recetas %}
         <tr>
             <th>{{receta.codigo_paciente.historial_clinico}}</th>
+            {% if session['rol'] == 'Medico' %}
             <th>{{receta.codigo_paciente.nombres}} {{receta.codigo_paciente.apellidos}}</th>
+            {% else %}
+            <th>{{receta.codigo_medico.nombres}} {{receta.codigo_medico.apellidos}}</th>
+            {% endif %}
             <th>{{receta.fecha}}</th>
             <th>
                 <a class="button is-link" href="">Ver</a>

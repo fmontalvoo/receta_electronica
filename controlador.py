@@ -96,14 +96,6 @@ def recuperar_recetas_paciente(codigo):
         cabecera = RecetaCabecera(receta.codigo, recuperar_medico(
             receta.codigo_medico), recuperar_paciente(receta.codigo_paciente), receta.fecha)
         recetas.append(cabecera)
-        # print(cab.codigo)
-        # detalles = []
-        # for d in det:
-        #     print(f'\t{d.codigo}, {d.codigo_cabecera}')
-        #     detalle = RecetaDetalle(
-        #         d.codigo, cab.codigo, recuperar_medicamento(d.codigo_medicamento))
-        #     detalles.append(detalle)
-        # recetas.append((cabecera, detalles))
     return recetas
 
 
@@ -113,12 +105,4 @@ def recuperar_recetas_medico(codigo):
         cabecera = RecetaCabecera(receta.codigo, recuperar_medico(
             receta.codigo_medico), recuperar_paciente(receta.codigo_paciente), receta.fecha)
         recetas.append(cabecera)
-        # print(cab.codigo)
-        # detalles = []
-        # for d in det:
-        #     print(f'\t{d.codigo}, {d.codigo_cabecera}')
-        #     detalle = RecetaDetalle(
-        #         d.codigo, cab.codigo, recuperar_medicamento(d.codigo_medicamento))
-        #     detalles.append(detalle)
-        # recetas.append((cabecera, detalles))
     return recetas

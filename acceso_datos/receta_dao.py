@@ -33,18 +33,12 @@ def registrar_detalle(detalle):
 
 
 def recuperar_recetas_paciente(codigo):
-    # recetas = []
     recetas = recuperar_cabeceras(codigo)
-    # for cabecera in cabeceras:
-    #     recetas.append((cabecera, recuperar_detalles(cabecera.codigo)))
     return recetas
 
 
 def recuperar_recetas_medico(codigo):
-    # recetas = []
     recetas = recuperar_cabeceras(codigo, True)
-    # for cabecera in cabeceras:
-    #     recetas.append((cabecera, recuperar_detalles(cabecera.codigo)))
     return recetas
 
 
