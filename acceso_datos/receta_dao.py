@@ -84,7 +84,7 @@ def recuperar_receta(codigo):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
         sql = '''
-            SELECT c.codigo, c.codigo_medico, c.codigo_paciente, d.codigo as codigo_detalle, d.codigo_medicamento 
+            SELECT c.codigo, c.codigo_medico, c.codigo_paciente, c.fecha, d.codigo as codigo_detalle, d.codigo_medicamento 
             FROM receta_cabecera c, receta_detalle d 
             WHERE c.codigo = d.codigo_cabecera AND c.codigo=%s
         '''
@@ -93,7 +93,7 @@ def recuperar_receta(codigo):
         if result != None:
             c = result[0]
             cabecera = RecetaCabecera(
-                c['codigo'], c['codigo_medico'], c['codigo_paciente'])
+                c['codigo'], c['codigo_medico'], c['codigo_paciente'], c['fecha'])
             detalles = []
             for fila in result:
                 detalle = RecetaDetalle(
@@ -102,3 +102,10 @@ def recuperar_receta(codigo):
 
             return cabecera, detalles
         return None
+
+def eliminar_receta(codigo):
+    conexion = obtener_conexion()
+    with conexion .cursor() as cursor:
+        sql = "DELETE c, d FROM receta_cabecera c, receta_detalle d WHERE c.codigo = d.codigo_cabecera AND c.codigo=%s"
+        cursor.execute(sql, (codigo))
+        conexion.commit()

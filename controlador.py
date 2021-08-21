@@ -106,3 +106,19 @@ def recuperar_recetas_medico(codigo):
             receta.codigo_medico), recuperar_paciente(receta.codigo_paciente), receta.fecha)
         recetas.append(cabecera)
     return recetas
+
+
+def recuperar_receta(codigo):
+    cab, dets = rdao.recuperar_receta(codigo)
+    cabecera = RecetaCabecera(cab.codigo, recuperar_medico(
+        cab.codigo_medico), recuperar_paciente(cab.codigo_paciente), cab.fecha)
+    detalles = []
+    for d in dets:
+        detalle = RecetaDetalle(d.codigo, cab.codigo,
+                                recuperar_medicamento(d.codigo_medicamento))
+        detalles.append(detalle)
+    return cabecera, detalles
+
+
+def eliminar_receta(codigo):
+    rdao.eliminar_receta(codigo)

@@ -1,8 +1,8 @@
 <nav class="navbar is-light" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-        <a class="navbar-item" href="{{ url_for('index') }}">
-        <img src="{{ url_for('static', filename='img/icono.png') }}" width="90">
-      </a>
+        <a class="navbar-item" href="{{ url_for('inicio') }}">
+            <img src="{{ url_for('static', filename='img/icono.png') }}" width="90">
+        </a>
     </div>
 
     <div id="navbarBasicExample" class="navbar-menu">
@@ -21,6 +21,14 @@
                 Medicamentos
             </a>
             {% endif %}
+
+            {% if session['rol'] != 'Administrador' %}
+            <a class="navbar-item" href="{{ url_for('lista_recetas') }}">
+                Recetas
+            </a>
+            {% endif %}
+
+
         </div>
 
         <div class="navbar-end">

@@ -26,12 +26,20 @@
             {% endif %}
             <th>{{receta.fecha}}</th>
             <th>
-                <a class="button is-link" href="">Ver</a>
+                <a class="button is-link" href="{{ url_for('recuperar_receta', codigo=receta.codigo) }}">Ver</a>
+                {% if session['rol'] == 'Medico' %}
+                <a id="btn-delete" class="button is-danger"
+                    href="{{ url_for('eliminar_receta', codigo=receta.codigo) }}">Eliminar</a>
+                {% endif %}
             </th>
         </tr>
         {% endfor %}
     </tbody>
 </table>
 {% endif %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock scripts %}
 
 {% endblock content %}

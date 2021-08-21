@@ -1,0 +1,82 @@
+{% extends './index.html' %}
+
+{% block title %}Registrar medicamentos{% endblock title %}
+
+{% block content %}
+{% if data %}
+
+<!-- <a class="button is-success is-outlined" href=""></a> -->
+<div class="card mt-4">
+    <div class="card-content">
+
+        <p class="card-header-title is-centered">
+            RECETA MEDICA
+        </p>
+
+        <div class="columns">
+            <div class="column">
+                <div class="field">
+                    <label class="label">HC</label>
+                    <p>{{data.cabecera.codigo_paciente.historial_clinico}}</p>
+                </div>
+            </div>
+            <div class="column">
+                <div class="field">
+                    <label class="label">Fecha</label>
+                    <div class="control">
+                        <p>{{data.cabecera.fecha}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="columns">
+            {% if session['rol'] == 'Medico' %}
+            <div class="column">
+                <div class="field">
+                    <label class="label">Paciente</label>
+                    <div class="control">
+                        <p>{{data.cabecera.codigo_paciente.nombres}}
+                            {{data.cabecera.codigo_paciente.apellidos}}</p>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="column">
+                <div class="field">
+                    <label class="label">Medico</label>
+                    <div class="control">
+                        <p>{{data.cabecera.codigo_medico.nombres}}
+                            {{data.cabecera.codigo_medico.apellidos}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="field">
+                    <label class="label">Especialidad</label>
+                    <div class="control">
+                        <p>{{data.cabecera.codigo_medico.especialidad}}</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <table class="table mt-5">
+            <thead>
+                <th>Medicamento</th>
+            </thead>
+            <tbody>
+                {% for detalle in data.detalles %}
+                <tr>
+                    <td>
+                        {{detalle.codigo_medicamento.nombre}}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+
+{% endblock content %}

@@ -18,18 +18,18 @@ def session_management():
 
 
 @app.route('/')
-def index():
+def inicio():
     usuario = recuperar_usuario()
     if usuario == None:
         return redirect(url_for('login'))
-    return render_template('index.html')
+    return render_template('inicio.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     usuario = recuperar_usuario()
     if usuario != None:
-        return redirect(url_for('index'))
+        return redirect(url_for('inicio'))
 
     if request.method == 'POST':
         data = request.form
@@ -43,7 +43,7 @@ def login():
             session['nombre_completo'] = usuario.nombre_completo
             session['correo'] = usuario.correo
             session['rol'] = usuario.rol
-            return redirect(url_for('index'))
+            return redirect(url_for('inicio'))
     return render_template('usuario/login.html')
 
 
@@ -190,7 +190,7 @@ def registrar_medicamento():
     if usuario == None:
         return redirect(url_for('login'))
     if usuario.rol != 'Administrador' and usuario.rol != 'Medico':
-        return redirect(url_for('index'))
+        return redirect(url_for('inicio'))
 
     if request.method == 'POST':
         data = request.form
@@ -283,6 +283,10 @@ def lista_recetas():
     if usuario == None:
         return redirect(url_for('login'))
 
+    es_administrador, _ = verificar_sesion(['Administrador'])
+    if es_administrador:
+        return redirect(url_for('inicio'))
+
     tiene_permiso, _ = verificar_sesion(['Medico'])
 
     if tiene_permiso:
@@ -293,6 +297,29 @@ def lista_recetas():
     recetas = controlador.recuperar_recetas_paciente(usuario.codigo)
     return render_template('receta/lista.html', data={'recetas': recetas})
 
+
+@app.route('/consultar_receta/<int:codigo>')
+def recuperar_receta(codigo):
+    usuario = recuperar_usuario()
+    if usuario == None:
+        return redirect(url_for('login'))
+
+    es_administrador, _ = verificar_sesion(['Administrador'])
+    if es_administrador:
+        return redirect(url_for('inicio'))
+
+    cabecera, detalles = controlador.recuperar_receta(codigo)
+    return render_template('receta/detalle.html', data={'cabecera': cabecera, 'detalles': detalles})
+
+@app.route('/eliminar_receta/<int:codigo>')
+def eliminar_receta(codigo):
+    tiene_permiso, ruta = verificar_sesion(['Medico'])
+    if not tiene_permiso:
+        return redirect(url_for(ruta))
+
+    controlador.eliminar_receta(codigo)
+
+    return redirect(url_for('lista_recetas'))
 
 def recuperar_usuario():
     try:
@@ -315,7 +342,7 @@ def verificar_sesion(roles=[]):
         tiene_permiso += (rol == usuario.rol)
 
     if not tiene_permiso:
-        return (False, 'index')
+        return (False, 'inicio')
 
     return (True, '')
 
